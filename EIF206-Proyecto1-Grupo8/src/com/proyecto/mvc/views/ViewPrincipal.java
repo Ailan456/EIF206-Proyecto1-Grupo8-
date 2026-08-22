@@ -21,6 +21,7 @@ import javax.swing.BoxLayout;
 public class ViewPrincipal extends JFrame {
 
 	private JPanel contentPane;
+	private JPanel pPrincipal;
 	private JLabel lblTitulo;
 	private JPanel pContenido;
 	private JButton btnTareasPendientes;
@@ -30,16 +31,16 @@ public class ViewPrincipal extends JFrame {
 	public ViewPrincipal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 489, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(null);
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+		pPrincipal = new JPanel();
+		pPrincipal.setBorder(null);
+		pPrincipal.setLayout(new BorderLayout(0, 0));
+		setContentPane(pPrincipal);
 		
 		JPanel pMenuLateral = new JPanel();
 		pMenuLateral.setPreferredSize(new Dimension(170, 10));
 		pMenuLateral.setBackground(Color.LIGHT_GRAY);
 		pMenuLateral.setBorder(new EmptyBorder(10, 10, 10, 10));
-		contentPane.add(pMenuLateral, BorderLayout.WEST);
+		pPrincipal.add(pMenuLateral, BorderLayout.WEST);
 		pMenuLateral.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		btnTareasPendientes = new JButton("  Tareas Pendientes  ");
@@ -52,7 +53,7 @@ public class ViewPrincipal extends JFrame {
 		pMenuLateral.add(btnCategorias);
 		
 		JPanel pCentral = new JPanel();
-		contentPane.add(pCentral, BorderLayout.CENTER);
+		pPrincipal.add(pCentral, BorderLayout.CENTER);
 		pCentral.setLayout(new BorderLayout(0, 0));
 		
 		JPanel pSuperior = new JPanel();
@@ -85,4 +86,46 @@ public class ViewPrincipal extends JFrame {
 		pContenido.repaint();
 		pContenido.revalidate();
 	}
+
+	public JLabel getLblTitulo() {
+		return lblTitulo;
+	}
+
+	public void setLblTitulo(JLabel lblTitulo) {
+		this.lblTitulo = lblTitulo;
+	}
+
+	public JPanel getpContenido() {
+		return pContenido;
+	}
+
+	public void setpContenido(JPanel pContenido) {
+		this.pContenido = pContenido;
+	}
+
+	public JButton getBtnTareasPendientes() {
+		return btnTareasPendientes;
+	}
+
+	public void setBtnTareasPendientes(JButton btnTareasPendientes) {
+		this.btnTareasPendientes = btnTareasPendientes;
+	}
+
+	public JButton getBtnTareasCompletadas() {
+		return btnTareasCompletadas;
+	}
+
+	public void setBtnTareasCompletadas(JButton btnTareasCompletadas) {
+		this.btnTareasCompletadas = btnTareasCompletadas;
+	}
+
+	public JButton getBtnCategorias() {
+		return btnCategorias;
+	}
+
+	public void setBtnCategorias(JButton btnCategorias) {
+		this.btnCategorias = btnCategorias;
+	}
+	
+	
 }

@@ -27,6 +27,11 @@ public class Categoria {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	@Override //Este toString es asi para cargar el cbx usando los objetos categoria
+	public String toString() {
+		return name;
+	}
 	
 	
 }

@@ -9,14 +9,15 @@ public class Tarea {
 	private boolean currentState;
 	private int categoryId;
 	
-	public Tarea(String name, String description, boolean currentState, int categoryId) {
+	public Tarea(String name, String description, int categoryId) {
 		super();
 		this.id = counter++;
 		this.name = name;
 		this.description = description;
-		this.currentState = currentState;
+		this.currentState = false;
 		this.categoryId = categoryId;
 	}
+	
 	public static int getCounter() {
 		return counter;
 	}
