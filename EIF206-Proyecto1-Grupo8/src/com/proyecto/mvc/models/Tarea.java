@@ -51,10 +51,14 @@ public class Tarea {
 	public boolean isCurrentState() {
 		return currentState;
 	}
+
 	public void setCurrentState(boolean currentState) {
 		this.currentState = currentState;
 	}
 	
+	public boolean getCurrentState() {
+		return this.currentState;
+	}
 	
 	
 }

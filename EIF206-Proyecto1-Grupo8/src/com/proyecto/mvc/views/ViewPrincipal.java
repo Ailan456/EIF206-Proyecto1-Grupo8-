@@ -30,7 +30,7 @@ public class ViewPrincipal extends JFrame {
 
 	public ViewPrincipal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 489, 300);
+		setBounds(100, 100,1100, 600);
 		pPrincipal = new JPanel();
 		pPrincipal.setBorder(null);
 		pPrincipal.setLayout(new BorderLayout(0, 0));
