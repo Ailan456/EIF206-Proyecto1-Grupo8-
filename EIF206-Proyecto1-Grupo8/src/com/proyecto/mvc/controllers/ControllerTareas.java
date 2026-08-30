@@ -41,13 +41,20 @@ public class ControllerTareas extends Functions {
 		// SECCION: TAREAS 
 		// =========================================================
 
+
+	public void initTasks() {
+		loadCbxCategory(taskView.getCbxCategory());
+		vp.setContenido(taskView, completedTask? "Tareas-Completadas":"Tareas-Pendientes");
+		setBtnsFunctions();
+	}
+
 	
 
 	// Metodo de inicializacion de listeners aparte para evitar el error de crear multiples listeners
-	public void setBtns() {
+	public void setBtnsFunctions() {
 		
 		taskView.getBtnCargar().addActionListener(e -> {
-			cargarTareas(taskView);
+			cargarTabla(taskView);
 		});
 		
 		if(!completedTask) { //dentro de este if, se setean los botones, solo si se van a usar
@@ -70,7 +77,7 @@ public class ControllerTareas extends Functions {
 	
 					if (opcion == 0) {
 						listaTareas.destroy(id);
-						cargarTareas(taskView);
+						cargarTabla(taskView);
 					}
 				}
 			});
@@ -83,7 +90,7 @@ public class ControllerTareas extends Functions {
 	
 					if (opcion == 0) {
 						listaTareas.completedTask(id);
-						cargarTareas(taskView);
+						cargarTabla(taskView);
 					}
 				}
 			});
@@ -92,13 +99,7 @@ public class ControllerTareas extends Functions {
 
 
 
-	//carga los
-	public void initTasks() {
-		loadCbxCategory(taskView.getCbxCategory());
-		vp.setContenido(taskView, completedTask? "Tareas-Completadas":"Tareas-Pendientes");
-		setBtns();
-	}
-
+	
 	
 	
 	// =========================================================
@@ -129,7 +130,7 @@ public class ControllerTareas extends Functions {
 	
 	
 	//Metodo que carga la tabla de pendientes(0) y completas(1), segun el parametro
-	public void cargarTareas(ViewTareasPendientes v) {
+	public void cargarTabla(ViewTareasPendientes v) {
 		Categoria c = (Categoria) v.getCbxCategory().getSelectedItem();
 		
 		if(c!=null) {
@@ -158,13 +159,13 @@ public class ControllerTareas extends Functions {
 			} else {
 				listaTareas.store(new Tarea(v.gettFName().getText(), v.gettADescription().getText(), category.getId()));
 				initTasks();
-				cargarTareas(taskView);
+				cargarTabla(taskView);
 			}
 		});
 
 		v.getBtnCancerlar().addActionListener(e -> {
 			initTasks();
-			cargarTareas(taskView);
+			cargarTabla(taskView);
 		});
 
 		vp.setContenido(v, "Tareas-Registrar");
@@ -189,13 +190,13 @@ public class ControllerTareas extends Functions {
 				Categoria category = (Categoria) v.getCbxCategory().getSelectedItem();
 				listaTareas.update(new Tarea(v.gettFName().getText(), v.gettADescription().getText(), category.getId()), id);
 				initTasks();
-	cargarTareas(taskView);
+	cargarTabla(taskView);
 			}
 		});
 
 		v.getBtnCancerlar().addActionListener(e -> {
 			initTasks();
-			cargarTareas(taskView);
+			cargarTabla(taskView);
 		});
 
 		vp.setContenido(v, "Tareas-Registrar");
@@ -219,7 +220,7 @@ public class ControllerTareas extends Functions {
 	
 
 	// =========================================================
-	//Informacion index
+	// Creamos las columnas y la informacion de la tabla
 	// =========================================================
 	
 	public String[] getTaskColums() {

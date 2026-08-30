@@ -25,7 +25,6 @@ public class ControllerCategoria extends Functions {
 	}
 	
 	public void init() {
-		//set data
 		setBtns();
 		
 		index();
