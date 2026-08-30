@@ -146,7 +146,7 @@ public class FormTasks extends JPanel {
 		this.btnCancerlar = btnCancerlar;
 	}
 	
-	public void hidePanel_categoria() {
+	public void hidePanel_categoriaForTheCategoryForm() {
 		panel_categoria.setVisible(false);
 	}
 }

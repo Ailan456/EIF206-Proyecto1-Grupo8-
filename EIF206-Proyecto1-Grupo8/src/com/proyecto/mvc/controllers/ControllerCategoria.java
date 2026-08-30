@@ -67,7 +67,7 @@ public class ControllerCategoria extends Functions {
 	
 	public void create() { // Panel de registrar pipol
 		FormTasks v = new FormTasks();
-		v.hidePanel_categoria();//escondemos la opcion que no se usa
+		v.hidePanel_categoriaForTheCategoryForm();//escondemos la opcion que no se usa
 		
 		
 		vp.setContenido(v, "Registrar Categoria");
@@ -88,7 +88,7 @@ public class ControllerCategoria extends Functions {
 	
 	public void edit(int id) {//Lo mismo que form pero en vez de create llamo a update
 		FormTasks v = new FormTasks();
-		v.hidePanel_categoria();//escondemos la opcion que no se usa
+		v.hidePanel_categoriaForTheCategoryForm();//escondemos la opcion que no se usa
 		
 		//busco la categoria y muestro sus datos
 		Categoria categoria = listaCategorias.findById(id);
@@ -116,7 +116,7 @@ public class ControllerCategoria extends Functions {
 	
 	public void index() { //Pone el panel index
 		taskView.getModel().setDataVector(getData(), getColums());
-		taskView.hideBtnCompletada();
+		taskView.hideForTheCategory();
 		vp.setContenido(taskView, "Lista de personas");
 		
 	}

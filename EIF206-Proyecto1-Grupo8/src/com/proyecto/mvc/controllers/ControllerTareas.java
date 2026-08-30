@@ -137,7 +137,7 @@ public class ControllerTareas extends Functions {
 			v.getLblActualCategory().setText(c.getName());
 			//si ya esta compledata no mostrar los botones
 			if(completedTask)
-				v.hidePanel_botones();
+				v.hidePanel_botonesForCompletedList();
 		}
 	}
 	

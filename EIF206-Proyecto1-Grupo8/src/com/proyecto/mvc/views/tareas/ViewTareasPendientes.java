@@ -30,6 +30,7 @@ public class ViewTareasPendientes extends JPanel {
 	private JLabel lblActualCategory;
 	private JPanel panel_botones;
 	private JPanel pSuperior;
+	private JPanel pCentralSuperior;
 
 	
 	public ViewTareasPendientes() {
@@ -57,7 +58,7 @@ public class ViewTareasPendientes extends JPanel {
 		add(pCentral, BorderLayout.CENTER);
 		pCentral.setLayout(new BorderLayout(0, 0));
 		
-		JPanel pCentralSuperior = new JPanel();
+		pCentralSuperior = new JPanel();
 		pCentralSuperior.setBorder(new EmptyBorder(5, 5, 5, 5));
 		FlowLayout fl_pCentralSuperior = (FlowLayout) pCentralSuperior.getLayout();
 		fl_pCentralSuperior.setAlignment(FlowLayout.LEFT);
@@ -194,13 +195,15 @@ public class ViewTareasPendientes extends JPanel {
 	}
 	
 	
-	public void hidePanel_botones() {
+	public void hidePanel_botonesForCompletedList() {
 		panel_botones.setVisible(false);
 	}
 	
-	public void hideBtnCompletada() {
+	public void hideForTheCategory() {
 		btnCompletada.setVisible(false);
 		pSuperior.setVisible(false);
+		pCentralSuperior.setVisible(false);
+		
 	}
 
 }
