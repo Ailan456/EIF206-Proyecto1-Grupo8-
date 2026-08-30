@@ -26,6 +26,7 @@ public class ViewTareasPendientes extends JPanel {
 	private JButton btnCompletada;
 	private DefaultTableModel model;
 	private JLabel lblActualCategory;
+	private JPanel panel_botones;
 
 	
 	public ViewTareasPendientes() {
@@ -67,27 +68,27 @@ public class ViewTareasPendientes extends JPanel {
 		lblActualCategory.setFont(new Font("Times New Roman", Font.PLAIN, 12));
 		pCentralSuperior.add(lblActualCategory);
 		
-		JPanel panel = new JPanel();
-		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
-		flowLayout.setAlignment(FlowLayout.RIGHT);
-		pCentral.add(panel, BorderLayout.SOUTH);
+		panel_botones = new JPanel();
+		panel_botones.setBorder(new EmptyBorder(5, 5, 5, 5));
+		FlowLayout fl_panel_botones = (FlowLayout) panel_botones.getLayout();
+		fl_panel_botones.setAlignment(FlowLayout.RIGHT);
+		pCentral.add(panel_botones, BorderLayout.SOUTH);
 		
 		btnNueva = new JButton("Nueva");
 		btnNueva.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		panel.add(btnNueva);
+		panel_botones.add(btnNueva);
 		
 		btnEditar = new JButton("Editar");
 		btnEditar.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		panel.add(btnEditar);
+		panel_botones.add(btnEditar);
 		
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		panel.add(btnEliminar);
+		panel_botones.add(btnEliminar);
 		
 		btnCompletada = new JButton("Completada");
 		btnCompletada.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		panel.add(btnCompletada);
+		panel_botones.add(btnCompletada);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		pCentral.add(scrollPane, BorderLayout.CENTER);
@@ -189,5 +190,13 @@ public class ViewTareasPendientes extends JPanel {
 		this.lblActualCategory = lblActualCategory;
 	}
 	
+	
+	public void hidePanel_botones() {
+		panel_botones.setVisible(false);
+	}
+	
+	public void hideBtnCompletada() {
+		btnCompletada.setVisible(false);
+	}
 
 }

@@ -1,4 +1,4 @@
-package com.proyecto.mvc.models;
+ package com.proyecto.mvc.models;
 
 import java.util.ArrayList;
 
