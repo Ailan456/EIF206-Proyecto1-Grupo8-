@@ -1,11 +1,11 @@
 package com.proyecto.init;
 
-import com.proyecto.mvc.controllers.ControllerTareas;
+import com.proyecto.mvc.controllers.Controller;
 
 public class Main {
 
 	public static void main(String[] args) {
-		new ControllerTareas().init();
+		new Controller().init();
 	}
 
 }
