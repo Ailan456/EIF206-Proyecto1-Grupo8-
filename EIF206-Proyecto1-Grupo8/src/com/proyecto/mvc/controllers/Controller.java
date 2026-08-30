@@ -1,17 +1,9 @@
 package com.proyecto.mvc.controllers;
 
-import java.util.ArrayList;
-
-import javax.swing.JComboBox;
-
 import com.proyecto.data.Data;
-import com.proyecto.mvc.models.Categoria;
 import com.proyecto.mvc.models.ListaCategorias;
 import com.proyecto.mvc.models.ListaTareas;
-import com.proyecto.mvc.models.Tarea;
 import com.proyecto.mvc.views.ViewPrincipal;
-import com.proyecto.mvc.views.tareas.FormTasks;
-import com.proyecto.mvc.views.tareas.ViewTareasPendientes;
 
 public class Controller extends Functions {
 
@@ -52,10 +44,15 @@ public class Controller extends Functions {
 		//llamamos el index
 		public void indexTareas(boolean completedTask) {
 			ControllerTareas c= new ControllerTareas(vp, listaTareas, listaCategorias, completedTask);
+			c.initTasks();
+		}
+	
+		public void indexCategorias() {
+			ControllerCategoria c= new ControllerCategoria(vp, listaCategorias);
 			c.init();
 		}
 	
-	
+		
 	
 	// Botones de la view principal
 	public void initVPListeners() {
@@ -68,7 +65,7 @@ public class Controller extends Functions {
 		});
 
 		vp.getBtnCategorias().addActionListener(e -> {
-			// Llamar view de categorias
+			indexCategorias();
 		});
 	}
 

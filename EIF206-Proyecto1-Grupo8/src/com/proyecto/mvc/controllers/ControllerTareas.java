@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
-import com.proyecto.data.Data;
 import com.proyecto.mvc.models.Categoria;
 import com.proyecto.mvc.models.ListaCategorias;
 import com.proyecto.mvc.models.ListaTareas;
@@ -36,10 +35,6 @@ public class ControllerTareas extends Functions {
 	}
 
 	
-	public void init() {
-		initIndexTareas();
-		indexTareas();
-	}
 	
 	
 	// =========================================================
@@ -49,7 +44,7 @@ public class ControllerTareas extends Functions {
 	
 
 	// Metodo de inicializacion de listeners aparte para evitar el error de crear multiples listeners
-	public void initIndexTareas() {
+	public void setBtns() {
 		
 		taskView.getBtnCargar().addActionListener(e -> {
 			cargarTareas(taskView);
@@ -98,10 +93,10 @@ public class ControllerTareas extends Functions {
 
 
 	//carga los
-	public void indexTareas() {
+	public void initTasks() {
 		loadCbxCategory(taskView.getCbxCategory());
 		vp.setContenido(taskView, completedTask? "Tareas-Completadas":"Tareas-Pendientes");
-		initIndexTareas();
+		setBtns();
 	}
 
 	
@@ -162,13 +157,13 @@ public class ControllerTareas extends Functions {
 				JOptionPane.showMessageDialog(null, "Por favor llene todos los campos");
 			} else {
 				listaTareas.store(new Tarea(v.gettFName().getText(), v.gettADescription().getText(), category.getId()));
-				indexTareas();
+				initTasks();
 				cargarTareas(taskView);
 			}
 		});
 
 		v.getBtnCancerlar().addActionListener(e -> {
-			indexTareas();
+			initTasks();
 			cargarTareas(taskView);
 		});
 
@@ -193,13 +188,13 @@ public class ControllerTareas extends Functions {
 			} else {
 				Categoria category = (Categoria) v.getCbxCategory().getSelectedItem();
 				listaTareas.update(new Tarea(v.gettFName().getText(), v.gettADescription().getText(), category.getId()), id);
-				indexTareas();
+				initTasks();
 	cargarTareas(taskView);
 			}
 		});
 
 		v.getBtnCancerlar().addActionListener(e -> {
-			indexTareas();
+			initTasks();
 			cargarTareas(taskView);
 		});
 
