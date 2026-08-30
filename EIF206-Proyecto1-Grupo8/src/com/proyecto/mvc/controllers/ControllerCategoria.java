@@ -69,6 +69,7 @@ public class ControllerCategoria extends Functions {
 		FormTasks v = new FormTasks();
 		v.hidePanel_categoria();//escondemos la opcion que no se usa
 		
+		
 		vp.setContenido(v, "Registrar Categoria");
 
 		v.getBtnGuardar().addActionListener(e->{
@@ -115,7 +116,9 @@ public class ControllerCategoria extends Functions {
 	
 	public void index() { //Pone el panel index
 		taskView.getModel().setDataVector(getData(), getColums());
+		taskView.hideBtnCompletada();
 		vp.setContenido(taskView, "Lista de personas");
+		
 	}
 
 	

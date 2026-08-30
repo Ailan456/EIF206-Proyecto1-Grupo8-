@@ -13,6 +13,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.Font;
+import java.awt.Panel;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
@@ -27,12 +29,13 @@ public class ViewTareasPendientes extends JPanel {
 	private DefaultTableModel model;
 	private JLabel lblActualCategory;
 	private JPanel panel_botones;
+	private JPanel pSuperior;
 
 	
 	public ViewTareasPendientes() {
 		setLayout(new BorderLayout(0, 0));
 		
-		JPanel pSuperior = new JPanel();
+		pSuperior = new JPanel();
 		pSuperior.setBorder(new EmptyBorder(10, 10, 10, 10));
 		pSuperior.setBackground(Color.LIGHT_GRAY);
 		FlowLayout fl_pSuperior = (FlowLayout) pSuperior.getLayout();
@@ -197,6 +200,7 @@ public class ViewTareasPendientes extends JPanel {
 	
 	public void hideBtnCompletada() {
 		btnCompletada.setVisible(false);
+		pSuperior.setVisible(false);
 	}
 
 }
