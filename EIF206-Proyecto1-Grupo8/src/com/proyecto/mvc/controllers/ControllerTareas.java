@@ -16,194 +16,136 @@ import com.proyecto.mvc.views.tareas.ViewTareasPendientes;
 
 public class ControllerTareas extends Functions {
 
-	// =========================================================
-	// ATRIBUTOS
-	// =========================================================
 	private ViewPrincipal vp;
-	private ViewTareasPendientes vPendientes;
+	private ViewTareasPendientes taskView;
 	private ListaTareas listaTareas;
 	private ListaCategorias listaCategorias;
-
-	// =========================================================
-	// CONSTRUCTOR
-	// =========================================================
-	public ControllerTareas() {
-		vp = new ViewPrincipal();
-		vPendientes = new ViewTareasPendientes(); // La creo aca porque solo se necesita crear 1 vez
-		listaTareas = new ListaTareas();
-		listaCategorias = new ListaCategorias();
-	}
+	private boolean completedTask;
+	
 
 	
-	// =========================================================
-	// ARRANQUE
-	// =========================================================
-	public void init() {
-		loadData();
-		vp.init();
+	public ControllerTareas(ViewPrincipal vp, ListaTareas listaTareas,
+			ListaCategorias listaCategorias, boolean completedTask) {
+		this.vp= vp;
+		this.listaTareas= listaTareas;
+		this.listaCategorias=listaCategorias;
+		this.completedTask=completedTask;
 		
-		// Funcionalidad de los botones
-		initVPListeners();
-		initTareasPendientes();
+		this.taskView = new ViewTareasPendientes();
+			}
 
-		// View por defecto al levantar
-		indexTareasPendientes();
+	
+	public void init() {
+		initIndexTareas();
+		indexTareas();
 	}
-
-	
-	// Botones de la view principal
-	public void initVPListeners() {
-		vp.getBtnTareasPendientes().addActionListener(e -> {
-			indexTareasPendientes();
-		});
-
-		vp.getBtnTareasCompletadas().addActionListener(e -> {
-			// Llamar view de completadas
-		});
-
-		vp.getBtnCategorias().addActionListener(e -> {
-			// Llamar view de categorias
-		});
-	}
-
 	
 	
-	// =========================================================
-	// DATOS DE PRUEBA
-	// =========================================================
-	private void loadData() {
-		new Data().getInfo(listaCategorias, listaTareas);	
-	}
 
-	
-	
 	// =========================================================
 	// COMBOBOX DE CATEGORIAS (compartido por todas las views)
 	// =========================================================
 	// Carga las categorias a TODOS los combobox, solo le pasan el combo de la view
 	public void loadCbxCategory(JComboBox<Categoria> cbx) {
-		/*
-		 * Este metodo remueve todo antes de agregar para que no se agregue cada que se llama a index
-		 * Tambien guarda la seleccion para que si se tenia seleccionada una categoria
-		 * Esta se mantenga al regresar al index
-		 */
+	
 		Categoria seleccionada = (Categoria) cbx.getSelectedItem();
-
 		cbx.removeAllItems();
 
-		for (Categoria categoria : listaCategorias.getAll()) {
+		for (Categoria categoria : listaCategorias.getAll())
 			cbx.addItem(categoria);
-		}
-
+		
 		if (seleccionada != null) {
 			cbx.setSelectedItem(seleccionada);
-		}
+		}else{cbx.setSelectedIndex(-1);} //si no selecciono nada, se muestra en blanco
 	}
 
 	
 	
 	
 	// =========================================================
-	// SECCION: TAREAS PENDIENTES
+	// SECCION: TAREAS 
 	// =========================================================
-	public String[] getTaskColums() {
-		return new String[] {"ID", "Nombre", "Descripcion"};
-	}
 
 	
-	// completada = false -> tareas pendientes / completada = true -> tareas completadas
-	// (el mismo metodo servira para el panel de completadas cuando lo armemos)
-	public Object[][] getTaskData(Categoria category, boolean state) {
-		ArrayList<Tarea> tareas = new ArrayList<>();
-		for (Tarea item : listaTareas.getAll()) {
-			if (item.getCategoryId() == category.getId() && item.getCurrentState() == state) {
-				tareas.add(item);
-			}
-		}
-		Object[][] data = new Object[tareas.size()][getTaskColums().length];
-		int i = 0;
-		for (Tarea item : tareas) {
-			data[i][0] = item.getId();
-			data[i][1] = item.getName();
-			data[i][2] = item.getDescription();
-			i++;
-		}
-		return data;
+	public void indexTareas() {
+		loadCbxCategory(taskView.getCbxCategory());
+		vp.setContenido(taskView, completedTask? "Tareas-Completadas":"Tareas-Pendientes");
+		initIndexTareas();
 	}
 
-	
-	
-	public void indexTareasPendientes() {
-		loadCbxCategory(vPendientes.getCbxCategory());
-		vp.setContenido(vPendientes, "Tareas-Pendientes");
-	}
 
 	
 	
 	// Metodo de inicializacion de listeners aparte para evitar el error de crear multiples listeners
-	public void initTareasPendientes() {
+	public void initIndexTareas() {
 
-		vPendientes.getBtnCargar().addActionListener(e -> {
-			cargarTareasPendientes(vPendientes);
+		taskView.getBtnCargar().addActionListener(e -> {
+			cargarTareas(taskView);
 		});
-
-		vPendientes.getBtnNueva().addActionListener(e -> {
-			createTask();
-		});
-
-		vPendientes.getBtnEditar().addActionListener(e -> {
-			int id = getSelectedID(vPendientes.getTable());
-
-			if (id > 0) {
-				editTask(id);
-			}
-		});
-
-		vPendientes.getBtnEliminar().addActionListener(e -> {
-			int id = getSelectedID(vPendientes.getTable());
-
-			if (id > 0) {
-				int opcion = JOptionPane.showConfirmDialog(null, "Seguro que desea eliminar?");
-
-				if (opcion == 0) {
-					listaTareas.destroy(id);
-					cargarTareasPendientes(vPendientes);
+		
+		if(!completedTask) { //dentro de este if, se setean los botones, solo si se van a usar
+			taskView.getBtnNueva().addActionListener(e -> {
+				createTask();
+			});
+	
+			taskView.getBtnEditar().addActionListener(e -> {
+				int id = getSelectedID(taskView.getTable());
+	
+				if (id > 0) {
+					editTask(id);
 				}
-			}
-		});
-
-		vPendientes.getBtnCompletada().addActionListener(e -> {
-			int id = getSelectedID(vPendientes.getTable());
-
-			if (id > 0) {
-				int opcion = JOptionPane.showConfirmDialog(null, "Desea marcar como completada la tarea?");
-
-				if (opcion == 0) {
-					listaTareas.completedTask(id);
-					cargarTareasPendientes(vPendientes);
+			});
+	
+			taskView.getBtnEliminar().addActionListener(e -> {
+				int id = getSelectedID(taskView.getTable());
+	
+				if (id > 0) {
+					int opcion = JOptionPane.showConfirmDialog(null, "Seguro que desea eliminar?");
+	
+					if (opcion == 0) {
+						listaTareas.destroy(id);
+						cargarTareas(taskView);
+					}
 				}
-			}
-		});
+			});
+	
+			taskView.getBtnCompletada().addActionListener(e -> {
+				int id = getSelectedID(taskView.getTable());
+	
+				if (id > 0) {
+					int opcion = JOptionPane.showConfirmDialog(null, "Desea marcar como completada la tarea?");
+	
+					if (opcion == 0) {
+						listaTareas.completedTask(id);
+						cargarTareas(taskView);
+					}
+				}
+			});
+		}//if
 	}
 
 	
 	
 	
-	//Metodo que carga la tabla de pendientes
-	public void cargarTareasPendientes(ViewTareasPendientes v) {
+	
+	
+	
+	//Metodo que carga la tabla de pendientes(0) y completas(1), segun el parametro
+	public void cargarTareas(ViewTareasPendientes v) {
 		Categoria c = (Categoria) v.getCbxCategory().getSelectedItem();
-		v.getModel().setDataVector(getTaskData(c, false), getTaskColums());
-		v.getLblActualCategory().setText(c.getName());
+		
+		if(c!=null) {
+			v.getModel().setDataVector(getTaskData(c), getTaskColums());
+			v.getLblActualCategory().setText(c.getName());
+			//si ya esta compledata no mostrar los botones
+			if(completedTask)
+				v.hidePanel_botones();
+		}
 	}
+	
 
 	
 	
-	// =========================================================
-	// SECCION: TAREAS COMPLETADAS
-	// =========================================================
-	// (pendiente: aca va indexTareasCompletadas / initTareasCompletadas / cargarTareasCompletadas,
-	//  reutilizando getTaskColums() y getTaskData(categoria, true))
-
 	// =========================================================
 	// FORMULARIOS DE TAREAS
 	// =========================================================
@@ -212,19 +154,19 @@ public class ControllerTareas extends Functions {
 		loadCbxCategory(v.getCbxCategory());
 
 		v.getBtnGuardar().addActionListener(e -> {
-			if (v.gettFName().getText().isEmpty() || v.gettADescription().getText().isEmpty()) {
+			Categoria category = (Categoria) v.getCbxCategory().getSelectedItem();
+			if (v.gettFName().getText().isEmpty() || v.gettADescription().getText().isEmpty() || category==null) {
 				JOptionPane.showMessageDialog(null, "Por favor llene todos los campos");
 			} else {
-				Categoria category = (Categoria) v.getCbxCategory().getSelectedItem();
 				listaTareas.store(new Tarea(v.gettFName().getText(), v.gettADescription().getText(), category.getId()));
-				indexTareasPendientes();
-				cargarTareasPendientes(vPendientes);
+				indexTareas();
+				cargarTareas(taskView);
 			}
 		});
 
 		v.getBtnCancerlar().addActionListener(e -> {
-			indexTareasPendientes();
-			cargarTareasPendientes(vPendientes);
+			indexTareas();
+			cargarTareas(taskView);
 		});
 
 		vp.setContenido(v, "Tareas-Registrar");
@@ -248,21 +190,21 @@ public class ControllerTareas extends Functions {
 			} else {
 				Categoria category = (Categoria) v.getCbxCategory().getSelectedItem();
 				listaTareas.update(new Tarea(v.gettFName().getText(), v.gettADescription().getText(), category.getId()), id);
-				indexTareasPendientes();
-				cargarTareasPendientes(vPendientes);
+				indexTareas();
+	cargarTareas(taskView);
 			}
 		});
 
 		v.getBtnCancerlar().addActionListener(e -> {
-			indexTareasPendientes();
-			cargarTareasPendientes(vPendientes);
+			indexTareas();
+			cargarTareas(taskView);
 		});
 
 		vp.setContenido(v, "Tareas-Registrar");
 	}
 
 	
-	
+	//carga en el cbx, la categoria con el id correspondiente
 	// Busca en el combo la Categoria cuyo ID coincide con categoryId y la selecciona.
 	// Hacerlo asi evita errores al borrar opciones del cbx
 	private void seleccionarCategoriaEnCombo(JComboBox<Categoria> cbx, int categoryId) {
@@ -275,4 +217,39 @@ public class ControllerTareas extends Functions {
 		}
 	}
 
+	
+	
+
+	// =========================================================
+	//Informacion index
+	// =========================================================
+	
+	
+	public String[] getTaskColums() {
+		return new String[] {"ID", "Nombre", "Descripcion"};
+	}
+
+	
+	// completada = false -> tareas pendientes / completada = true -> tareas completadas
+	// (el mismo metodo servira para el panel de completadas cuando lo armemos)
+	public Object[][] getTaskData(Categoria category) {
+		ArrayList<Tarea> tareas = new ArrayList<>();
+		for (Tarea item : listaTareas.getAll()) {
+			if (item.getCategoryId() == category.getId() && item.getCurrentState() == completedTask) {
+				tareas.add(item);
+			}
+		}
+		Object[][] data = new Object[tareas.size()][getTaskColums().length];
+		int i = 0;
+		for (Tarea item : tareas) {
+			data[i][0] = item.getId();
+			data[i][1] = item.getName();
+			data[i][2] = item.getDescription();
+			i++;
+		}
+		return data;
+	}
+
+	
+	
 }
