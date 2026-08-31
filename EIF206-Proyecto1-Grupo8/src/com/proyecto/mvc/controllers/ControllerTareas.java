@@ -46,6 +46,8 @@ public class ControllerTareas extends Functions {
 		loadCbxCategory(taskView.getCbxCategory());
 		vp.setContenido(taskView, completedTask? "Tareas-Completadas":"Tareas-Pendientes");
 		setBtnsFunctions();
+		if(completedTask)
+			taskView.hidePanel_botonesForCompletedList();
 	}
 
 	
