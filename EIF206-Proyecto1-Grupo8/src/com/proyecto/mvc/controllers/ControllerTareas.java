@@ -61,44 +61,40 @@ public class ControllerTareas extends Functions {
 			loadTableTask(tableView);
 		});
 		
-		if(!completedTask) { //dentro de este if, se setean los botones, solo si se van a usar
-			tableView.getBtnNueva().addActionListener(e -> {
-				createTask();
-			});
-	
-			tableView.getBtnEditar().addActionListener(e -> {
-				int id = getSelectedID(tableView.getTable());
-				
-				if (id > 0)
-					editTask(id);
-			});
-	
-			tableView.getBtnEliminar().addActionListener(e -> {
-				int id = getSelectedID(tableView.getTable());
-	
-				if (id > 0) {
-					int opcion = JOptionPane.showConfirmDialog(null, "Seguro que desea eliminar?");
-	
-					if (opcion == 0) {
-						listaTareas.destroy(id);
-						loadTableTask(tableView);
-					}
+		
+		tableView.getBtnNueva().addActionListener(e -> {
+			createTask();
+		});
+
+		
+		tableView.getBtnEditar().addActionListener(e -> {
+			int id = getSelectedID(tableView.getTable());	
+			if (id > 0) editTask(id);
+		});
+
+		
+		tableView.getBtnEliminar().addActionListener(e -> {
+			int id = getSelectedID(tableView.getTable());
+			if (id > 0) {
+				int opcion = JOptionPane.showConfirmDialog(null, "Seguro que desea eliminar?");
+				if (opcion == 0) {
+					listaTareas.destroy(id);
+					loadTableTask(tableView);
 				}
-			});
-	
-			tableView.getBtnCompletada().addActionListener(e -> {
-				int id = getSelectedID(tableView.getTable());
-	
-				if (id > 0) {
-					int opcion = JOptionPane.showConfirmDialog(null, "Desea marcar como completada la tarea?");
-	
-					if (opcion == 0) {
-						listaTareas.completedTask(id);
-						loadTableTask(tableView);
-					}
+			}
+		});
+
+		
+		tableView.getBtnCompletada().addActionListener(e -> {
+			int id = getSelectedID(tableView.getTable());
+			if (id > 0) {
+				int opcion = JOptionPane.showConfirmDialog(null, "Desea marcar como completada la tarea?");
+				if (opcion == 0) {
+					listaTareas.completedTask(id);
+					loadTableTask(tableView);
 				}
-			});
-		}//if
+			}
+		});
 	}
 
 
@@ -114,11 +110,10 @@ public class ControllerTareas extends Functions {
 		Categoria seleccionada = (Categoria) cbx.getSelectedItem();
 		cbx.removeAllItems();
 
-		for (Categoria categoria : listaCategorias.getAll())
+		for (Categoria categoria : listaCategorias.getAll()) 
 			cbx.addItem(categoria);
 		
-		if (seleccionada != null) {
-			cbx.setSelectedItem(seleccionada);
+		if (seleccionada != null) {cbx.setSelectedItem(seleccionada);
 		}else{cbx.setSelectedIndex(-1);} //si no selecciono nada, se muestra en blanco
 	}
 
@@ -152,16 +147,17 @@ public class ControllerTareas extends Functions {
 	public void createTask() {
 		Form v = new Form();
 		loadCbxCategory(v.getCbxCategory());
-
+		
 		v.getBtnGuardar().addActionListener(e -> {
 			Categoria category = (Categoria) v.getCbxCategory().getSelectedItem();
-			if (v.gettFName().getText().isEmpty() || v.gettADescription().getText().isEmpty() || category==null) {
+			if (v.gettFName().getText().isEmpty() || v.gettADescription().getText().isEmpty() || category==null)
 				JOptionPane.showMessageDialog(null, "Por favor llene todos los campos");
-			} else {
+			else {
 				listaTareas.store(new Tarea(v.gettFName().getText(), v.gettADescription().getText(), category.getId()));
 				indexTasks();
 			}
 		});
+
 
 		v.getBtnCancerlar().addActionListener(e -> {
 			indexTasks();
@@ -183,9 +179,9 @@ public class ControllerTareas extends Functions {
 		seleccionarCategoriaEnCombo(v.getCbxCategory(), item.getCategoryId());
 
 		v.getBtnGuardar().addActionListener(e -> {
-			if (v.gettFName().getText().isEmpty() || v.gettADescription().getText().isEmpty()) {
+			if (v.gettFName().getText().isEmpty() || v.gettADescription().getText().isEmpty())
 				JOptionPane.showMessageDialog(null, "Por favor llene todos los campos");
-			} else {
+			else {
 				Categoria category = (Categoria) v.getCbxCategory().getSelectedItem();
 				listaTareas.update(new Tarea(v.gettFName().getText(), v.gettADescription().getText(), category.getId()), id);
 				indexTasks();
@@ -232,10 +228,10 @@ public class ControllerTareas extends Functions {
 	public Object[][] getTaskData(Categoria category) {
 		ArrayList<Tarea> tareas = new ArrayList<>();
 		for (Tarea item : listaTareas.getAll()) {
-			if (item.getCategoryId() == category.getId() && item.getCurrentState() == completedTask) {
+			if (item.getCategoryId() == category.getId() && item.getCurrentState() == completedTask)
 				tareas.add(item);
-			}
 		}
+		
 		Object[][] data = new Object[tareas.size()][getTaskColums().length];
 		int i = 0;
 		for (Tarea item : tareas) {

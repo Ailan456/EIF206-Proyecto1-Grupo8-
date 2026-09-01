@@ -13,8 +13,8 @@ public class Controller{
 	private ViewPrincipal vp;
 	private ListaTareas listaTareas;
 	private ListaCategorias listaCategorias;
-	private ControllerTareas task;
-	private ControllerCategoria cat;
+	private ControllerTareas controllerTask;
+	private ControllerCategoria controllerCategory;
 	
 	// =========================================================
 	// CONSTRUCTOR
@@ -23,8 +23,8 @@ public class Controller{
 		vp = new ViewPrincipal();
 		listaTareas = new ListaTareas();
 		listaCategorias = new ListaCategorias();
-		task= new ControllerTareas(vp, listaTareas, listaCategorias);
-		cat= new ControllerCategoria(vp, listaCategorias);
+		controllerTask= new ControllerTareas(vp, listaTareas, listaCategorias);
+		controllerCategory= new ControllerCategoria(vp, listaCategorias);
 		
 		}
 
@@ -47,12 +47,12 @@ public class Controller{
 		
 		//TablaTareas
 		public void indexTareas(boolean completedTask) {
-			task.init(completedTask);
+			controllerTask.init(completedTask);
 		}
 		
 		//TablaCategoria
 		public void indexCategorias() {
-			cat.init();
+			controllerCategory.init();
 		}
 	
 		

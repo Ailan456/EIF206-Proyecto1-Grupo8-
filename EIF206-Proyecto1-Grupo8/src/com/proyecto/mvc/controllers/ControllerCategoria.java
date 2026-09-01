@@ -25,9 +25,22 @@ public class ControllerCategoria extends Functions {
 		setBtnsCat();
 	}
 	
-	public void init() {
-		index();
+	
+	
+	public void init() {index();}
+	
+	
+	
+
+	public void index() { //Pone el panel index
+		tableView.getModel().setDataVector(getData(), getColums());
+		tableView.showForTheCategory(false);
+		vp.setContenido(tableView, "Categorias");
+		
 	}
+
+	
+	
 	
 	
 	
@@ -63,6 +76,11 @@ public class ControllerCategoria extends Functions {
 	
 	
 	
+	
+	
+	
+	
+	
 	public void create() { // Panel de registrar pipol
 		Form v = new Form();
 		v.showPanel_categoriaForTheCategoryForm(false);//escondemos la opcion que no se usa
@@ -80,6 +98,11 @@ public class ControllerCategoria extends Functions {
 		v.getBtnCancerlar().addActionListener(e->{index();});
 	}
 
+	
+	
+	
+	
+	
 	
 	public void edit(int id) {//Lo mismo que form pero en vez de create llamo a update
 		Form v = new Form();
@@ -108,16 +131,6 @@ public class ControllerCategoria extends Functions {
 	
 	
 	
-	
-	
-	
-	public void index() { //Pone el panel index
-		tableView.getModel().setDataVector(getData(), getColums());
-		tableView.showForTheCategory(false);
-		vp.setContenido(tableView, "Categorias");
-		
-	}
-
 	
 	
 	
