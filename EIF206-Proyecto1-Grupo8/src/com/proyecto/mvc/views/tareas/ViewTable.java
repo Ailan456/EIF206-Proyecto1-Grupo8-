@@ -3,20 +3,19 @@ package com.proyecto.mvc.views.tareas;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
 import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.Font;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-public class ViewTareasPendientes extends JPanel {
+public class ViewTable extends JPanel {
 	private JComboBox cbxCategory;
 	private JButton btnCargar;
 	private JTable table;
@@ -26,12 +25,15 @@ public class ViewTareasPendientes extends JPanel {
 	private JButton btnCompletada;
 	private DefaultTableModel model;
 	private JLabel lblActualCategory;
+	private JPanel panel_botones;
+	private JPanel pSuperior;
+	private JPanel pCentralSuperior;
 
 	
-	public ViewTareasPendientes() {
+	public ViewTable() {
 		setLayout(new BorderLayout(0, 0));
 		
-		JPanel pSuperior = new JPanel();
+		pSuperior = new JPanel();
 		pSuperior.setBorder(new EmptyBorder(10, 10, 10, 10));
 		pSuperior.setBackground(Color.LIGHT_GRAY);
 		FlowLayout fl_pSuperior = (FlowLayout) pSuperior.getLayout();
@@ -53,7 +55,7 @@ public class ViewTareasPendientes extends JPanel {
 		add(pCentral, BorderLayout.CENTER);
 		pCentral.setLayout(new BorderLayout(0, 0));
 		
-		JPanel pCentralSuperior = new JPanel();
+		pCentralSuperior = new JPanel();
 		pCentralSuperior.setBorder(new EmptyBorder(5, 5, 5, 5));
 		FlowLayout fl_pCentralSuperior = (FlowLayout) pCentralSuperior.getLayout();
 		fl_pCentralSuperior.setAlignment(FlowLayout.LEFT);
@@ -67,27 +69,27 @@ public class ViewTareasPendientes extends JPanel {
 		lblActualCategory.setFont(new Font("Times New Roman", Font.PLAIN, 12));
 		pCentralSuperior.add(lblActualCategory);
 		
-		JPanel panel = new JPanel();
-		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
-		flowLayout.setAlignment(FlowLayout.RIGHT);
-		pCentral.add(panel, BorderLayout.SOUTH);
+		panel_botones = new JPanel();
+		panel_botones.setBorder(new EmptyBorder(5, 5, 5, 5));
+		FlowLayout fl_panel_botones = (FlowLayout) panel_botones.getLayout();
+		fl_panel_botones.setAlignment(FlowLayout.RIGHT);
+		pCentral.add(panel_botones, BorderLayout.SOUTH);
 		
 		btnNueva = new JButton("Nueva");
 		btnNueva.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		panel.add(btnNueva);
+		panel_botones.add(btnNueva);
 		
 		btnEditar = new JButton("Editar");
 		btnEditar.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		panel.add(btnEditar);
+		panel_botones.add(btnEditar);
 		
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		panel.add(btnEliminar);
+		panel_botones.add(btnEliminar);
 		
 		btnCompletada = new JButton("Completada");
 		btnCompletada.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		panel.add(btnCompletada);
+		panel_botones.add(btnCompletada);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		pCentral.add(scrollPane, BorderLayout.CENTER);
@@ -189,5 +191,16 @@ public class ViewTareasPendientes extends JPanel {
 		this.lblActualCategory = lblActualCategory;
 	}
 	
+	
+	public void showPanel_botonesForCompletedList(boolean show) {
+		panel_botones.setVisible(show);
+	}
+	
+	public void showForTheCategory(boolean show) {
+		btnCompletada.setVisible(show);
+		pSuperior.setVisible(show);
+		pCentralSuperior.setVisible(show);
+		
+	}
 
 }

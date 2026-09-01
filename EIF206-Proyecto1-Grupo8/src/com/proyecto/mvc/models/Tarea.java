@@ -18,6 +18,17 @@ public class Tarea {
 		this.categoryId = categoryId;
 	}
 	
+	
+	public Tarea(String name, String description, int categoryId, boolean completed) {
+		super();
+		this.id = counter++;
+		this.name = name;
+		this.description = description;
+		this.currentState = completed;
+		this.categoryId = categoryId;
+	}
+	
+	
 	public static int getCounter() {
 		return counter;
 	}
