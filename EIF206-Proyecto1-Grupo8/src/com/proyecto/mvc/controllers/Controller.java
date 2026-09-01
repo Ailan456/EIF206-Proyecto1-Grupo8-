@@ -4,9 +4,8 @@ import com.proyecto.mvc.data.Data;
 import com.proyecto.mvc.models.ListaCategorias;
 import com.proyecto.mvc.models.ListaTareas;
 import com.proyecto.mvc.views.ViewPrincipal;
-import com.proyecto.mvc.views.tareas.ViewTable;
 
-public class Controller extends Functions {
+public class Controller{
 
 	// =========================================================
 	// ATRIBUTOS
@@ -46,15 +45,12 @@ public class Controller extends Functions {
 		//llamamos los datos de prueva 	
 		private void loadData() {new Data().getInfo(listaCategorias, listaTareas);}
 		
-		
-		//llamamos el index
+		//TablaTareas
 		public void indexTareas(boolean completedTask) {
-			task.initTasks(completedTask);
+			task.init(completedTask);
 		}
 		
-		
-		//public ControllerCategoria(ViewPrincipal vp,
-		//		ListaCategorias listaCategorias, ViewTable tableView) {		
+		//TablaCategoria
 		public void indexCategorias() {
 			cat.init();
 		}

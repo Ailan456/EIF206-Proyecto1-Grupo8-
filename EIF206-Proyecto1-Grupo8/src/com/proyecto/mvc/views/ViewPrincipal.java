@@ -1,22 +1,19 @@
 package com.proyecto.mvc.views;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
-import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 
 import java.awt.FlowLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import javax.swing.SwingConstants;
 import java.awt.Font;
-import javax.swing.BoxLayout;
+
 
 public class ViewPrincipal extends JFrame {
 

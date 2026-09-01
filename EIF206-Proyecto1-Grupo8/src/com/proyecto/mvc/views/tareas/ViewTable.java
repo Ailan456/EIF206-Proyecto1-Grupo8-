@@ -3,17 +3,14 @@ package com.proyecto.mvc.views.tareas;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
 import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.Font;
-import java.awt.Panel;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;

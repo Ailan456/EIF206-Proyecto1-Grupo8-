@@ -18,15 +18,14 @@ public class ControllerCategoria extends Functions {
 	private ViewTable tableView;
 	
 	
-	public ControllerCategoria(ViewPrincipal vp,
-			ListaCategorias listaCategorias) {
+	public ControllerCategoria(ViewPrincipal vp, ListaCategorias listaCategorias) {
 		this.vp = vp;
 		this.listaCategorias=listaCategorias;
 		this.tableView = new ViewTable();
+		setBtnsCat();
 	}
 	
 	public void init() {
-		setBtns();
 		index();
 	}
 	
@@ -34,7 +33,7 @@ public class ControllerCategoria extends Functions {
 	
 	
 	
-	public void setBtns() {
+	public void setBtnsCat() {
 
 		
 		tableView.getBtnNueva().addActionListener(e->{
@@ -63,23 +62,19 @@ public class ControllerCategoria extends Functions {
 	}
 	
 	
+	
 	public void create() { // Panel de registrar pipol
 		Form v = new Form();
 		v.showPanel_categoriaForTheCategoryForm(false);//escondemos la opcion que no se usa
-		
 		
 		vp.setContenido(v, "Registrar Categoria");
 
 		v.getBtnGuardar().addActionListener(e->{
 
-			//Obtengo datos de la vista
-			String name =v.gettFName().getText();
-			//Creo el objeto
-			Categoria categoria = new Categoria(name);
-			//Guardo en la lista
-			listaCategorias.store(categoria);
-			//Regresar al index
-			index(); 
+			String name =v.gettFName().getText();//Obtengo datos de la vista
+			Categoria categoria = new Categoria(name);//Creo el objeto
+			listaCategorias.store(categoria);//Guardo en la lista
+			index();//Regresar al index
 		});
 	
 		v.getBtnCancerlar().addActionListener(e->{index();});

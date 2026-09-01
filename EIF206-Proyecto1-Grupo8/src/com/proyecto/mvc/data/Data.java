@@ -1,7 +1,5 @@
 package com.proyecto.mvc.data;
 
-import java.util.ArrayList;
-
 import com.proyecto.mvc.models.Categoria;
 import com.proyecto.mvc.models.ListaCategorias;
 import com.proyecto.mvc.models.ListaTareas;

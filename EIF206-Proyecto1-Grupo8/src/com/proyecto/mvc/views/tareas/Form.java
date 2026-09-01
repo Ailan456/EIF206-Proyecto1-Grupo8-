@@ -7,15 +7,14 @@ import javax.swing.JTextArea;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.border.EmptyBorder;
-import javax.swing.text.TabExpander;
 
 import java.awt.GridLayout;
-import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 public class Form extends JPanel {
+	
 	private JTextArea tADescription;
 	private JTextField tFName;
 	private JButton btnGuardar;

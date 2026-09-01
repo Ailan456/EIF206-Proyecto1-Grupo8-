@@ -23,14 +23,13 @@ public class ControllerTareas extends Functions {
 	private boolean completedTask;
 	
 
-	//nota, hay que revisar los llamados en controller tarea a initTasks();
 	public ControllerTareas(ViewPrincipal vp, ListaTareas listaTareas,
 			ListaCategorias listaCategorias) {
 		this.vp= vp;
 		this.listaTareas= listaTareas;
 		this.listaCategorias=listaCategorias;		
-		this.tableView = new ViewTable();
-		setBtnsFunctions();//ahora se setea en el constructor, porque se hace una sola vez
+		this.tableView = new ViewTable(); //ahora la tabla se crea una sola vez
+		setBtnsTask();//ahora se setea en el constructor, porque se hace una sola vez
 		
 	}
 
@@ -41,22 +40,25 @@ public class ControllerTareas extends Functions {
 		// SECCION: TAREAS 
 		// =========================================================
 
+	public void init(boolean completedTask) {
+		this.completedTask=completedTask;
+		indexTasks();
+	}
 
-	public void initTasks(boolean completedTask) {
+	public void indexTasks() {
 		loadCbxCategory(tableView.getCbxCategory()); //carga todos las opciones, y selecciona el que ya estaba 
 		vp.setContenido(tableView, completedTask? "Tareas-Completadas":"Tareas-Pendientes"); // lo mostramos
 		tableView.showPanel_botonesForCompletedList(!completedTask); //muestra los botones si es falso que completedTask
-		this.completedTask=completedTask;
-		cargarTabla(tableView);
+		loadTableTask(tableView);
 	}
 
 	
 
 	// Metodo de inicializacion de listeners aparte para evitar el error de crear multiples listeners
-	public void setBtnsFunctions() {
+	public void setBtnsTask() {
 		
 		tableView.getBtnCargar().addActionListener(e -> {
-			cargarTabla(tableView);
+			loadTableTask(tableView);
 		});
 		
 		if(!completedTask) { //dentro de este if, se setean los botones, solo si se van a usar
@@ -79,7 +81,7 @@ public class ControllerTareas extends Functions {
 	
 					if (opcion == 0) {
 						listaTareas.destroy(id);
-						cargarTabla(tableView);
+						loadTableTask(tableView);
 					}
 				}
 			});
@@ -92,7 +94,7 @@ public class ControllerTareas extends Functions {
 	
 					if (opcion == 0) {
 						listaTareas.completedTask(id);
-						cargarTabla(tableView);
+						loadTableTask(tableView);
 					}
 				}
 			});
@@ -107,7 +109,7 @@ public class ControllerTareas extends Functions {
 	// =========================================================
 	// COMBOBOX DE CATEGORIAS (compartido por todas las views)
 	// =========================================================
-	// Carga las categorias a TODOS los combobox, solo le pasan el combo de la view
+	// Refresca las opciones, y vuelve a seleccionar la que ya estaba
 	public void loadCbxCategory(JComboBox<Categoria> cbx) {
 		Categoria seleccionada = (Categoria) cbx.getSelectedItem();
 		cbx.removeAllItems();
@@ -132,7 +134,7 @@ public class ControllerTareas extends Functions {
 	
 	
 	//Metodo que carga la tabla de pendientes(0) y completas(1), segun el parametro
-	public void cargarTabla(ViewTable v) {
+	public void loadTableTask(ViewTable v) {
 		Categoria c = (Categoria) v.getCbxCategory().getSelectedItem();
 		
 		if(c!=null) {
@@ -157,12 +159,12 @@ public class ControllerTareas extends Functions {
 				JOptionPane.showMessageDialog(null, "Por favor llene todos los campos");
 			} else {
 				listaTareas.store(new Tarea(v.gettFName().getText(), v.gettADescription().getText(), category.getId()));
-				initTasks(completedTask);
+				indexTasks();
 			}
 		});
 
 		v.getBtnCancerlar().addActionListener(e -> {
-			initTasks(completedTask);
+			indexTasks();
 		});
 
 		vp.setContenido(v, "Tareas-Registrar");
@@ -186,12 +188,12 @@ public class ControllerTareas extends Functions {
 			} else {
 				Categoria category = (Categoria) v.getCbxCategory().getSelectedItem();
 				listaTareas.update(new Tarea(v.gettFName().getText(), v.gettADescription().getText(), category.getId()), id);
-				initTasks(completedTask);
+				indexTasks();
 			}
 		});
 
 		v.getBtnCancerlar().addActionListener(e -> {
-			initTasks(completedTask);
+			indexTasks();
 		});
 
 		vp.setContenido(v, "Tareas-Registrar");
