@@ -1,4 +1,4 @@
-package com.proyecto.data;
+package com.proyecto.mvc.data;
 
 import java.util.ArrayList;
 

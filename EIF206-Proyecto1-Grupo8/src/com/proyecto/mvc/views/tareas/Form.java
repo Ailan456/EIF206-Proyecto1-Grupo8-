@@ -15,7 +15,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
-public class FormTasks extends JPanel {
+public class Form extends JPanel {
 	private JTextArea tADescription;
 	private JTextField tFName;
 	private JButton btnGuardar;
@@ -26,7 +26,7 @@ public class FormTasks extends JPanel {
 	private JLabel label_5;
 	private JLabel label;
 
-	public FormTasks() {
+	public Form() {
 		setBorder(new EmptyBorder(10, 10, 10, 10));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{330, 0};

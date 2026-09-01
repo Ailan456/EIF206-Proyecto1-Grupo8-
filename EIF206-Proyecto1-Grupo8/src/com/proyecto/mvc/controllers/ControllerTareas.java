@@ -11,13 +11,13 @@ import com.proyecto.mvc.models.ListaCategorias;
 import com.proyecto.mvc.models.ListaTareas;
 import com.proyecto.mvc.models.Tarea;
 import com.proyecto.mvc.views.ViewPrincipal;
-import com.proyecto.mvc.views.tareas.FormTasks;
-import com.proyecto.mvc.views.tareas.ViewTareasPendientes;
+import com.proyecto.mvc.views.tareas.Form;
+import com.proyecto.mvc.views.tareas.ViewTable;
 
 public class ControllerTareas extends Functions {
 
 	private ViewPrincipal vp;
-	private ViewTareasPendientes taskView;
+	private ViewTable taskView;
 	private ListaTareas listaTareas;
 	private ListaCategorias listaCategorias;
 	private boolean completedTask;
@@ -31,7 +31,7 @@ public class ControllerTareas extends Functions {
 		this.listaCategorias=listaCategorias;
 		this.completedTask=completedTask;
 		
-		this.taskView = new ViewTareasPendientes();
+		this.taskView = new ViewTable();
 	}
 
 	
@@ -46,6 +46,7 @@ public class ControllerTareas extends Functions {
 		loadCbxCategory(taskView.getCbxCategory());
 		vp.setContenido(taskView, completedTask? "Tareas-Completadas":"Tareas-Pendientes");
 		setBtnsFunctions();
+		
 		if(completedTask)
 			taskView.hidePanel_botonesForCompletedList();
 	}
@@ -132,15 +133,12 @@ public class ControllerTareas extends Functions {
 	
 	
 	//Metodo que carga la tabla de pendientes(0) y completas(1), segun el parametro
-	public void cargarTabla(ViewTareasPendientes v) {
+	public void cargarTabla(ViewTable v) {
 		Categoria c = (Categoria) v.getCbxCategory().getSelectedItem();
 		
 		if(c!=null) {
 			v.getModel().setDataVector(getTaskData(c), getTaskColums());
 			v.getLblActualCategory().setText(c.getName());
-			//si ya esta compledata no mostrar los botones
-			if(completedTask)
-				v.hidePanel_botonesForCompletedList();
 		}
 	}
 	
@@ -151,7 +149,7 @@ public class ControllerTareas extends Functions {
 	// FORMULARIOS DE TAREAS
 	// =========================================================
 	public void createTask() {
-		FormTasks v = new FormTasks();
+		Form v = new Form();
 		loadCbxCategory(v.getCbxCategory());
 
 		v.getBtnGuardar().addActionListener(e -> {
@@ -176,7 +174,7 @@ public class ControllerTareas extends Functions {
 	
 	
 	public void editTask(int id) {
-		FormTasks v = new FormTasks();
+		Form v = new Form();
 
 		// Cargamos datos
 		Tarea item = listaTareas.findById(id);

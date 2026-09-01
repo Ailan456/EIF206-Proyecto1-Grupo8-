@@ -8,20 +8,20 @@ import javax.swing.JOptionPane;
 import com.proyecto.mvc.models.Categoria;
 import com.proyecto.mvc.models.ListaCategorias;
 import com.proyecto.mvc.views.ViewPrincipal;
-import com.proyecto.mvc.views.tareas.FormTasks;
-import com.proyecto.mvc.views.tareas.ViewTareasPendientes;
+import com.proyecto.mvc.views.tareas.Form;
+import com.proyecto.mvc.views.tareas.ViewTable;
 
 public class ControllerCategoria extends Functions {
 
 	ViewPrincipal vp;
 	private ListaCategorias listaCategorias;
-	private ViewTareasPendientes taskView;
+	private ViewTable taskView;
 	
 	
 	public ControllerCategoria(ViewPrincipal vp, ListaCategorias listaCategorias) {
 		this.vp = vp;
 		this.listaCategorias=listaCategorias;
-		this.taskView = new ViewTareasPendientes();
+		this.taskView = new ViewTable();
 	}
 	
 	public void init() {
@@ -65,7 +65,7 @@ public class ControllerCategoria extends Functions {
 	
 	
 	public void create() { // Panel de registrar pipol
-		FormTasks v = new FormTasks();
+		Form v = new Form();
 		v.hidePanel_categoriaForTheCategoryForm();//escondemos la opcion que no se usa
 		
 		
@@ -82,11 +82,13 @@ public class ControllerCategoria extends Functions {
 			//Regresar al index
 			index(); 
 		});
+	
+		v.getBtnCancerlar().addActionListener(e->{index();});
 	}
 
 	
 	public void edit(int id) {//Lo mismo que form pero en vez de create llamo a update
-		FormTasks v = new FormTasks();
+		Form v = new Form();
 		v.hidePanel_categoriaForTheCategoryForm();//escondemos la opcion que no se usa
 		
 		//busco la categoria y muestro sus datos
@@ -105,6 +107,8 @@ public class ControllerCategoria extends Functions {
 			//Regresar al index
 			index();
 		});
+		
+		v.getBtnCancerlar().addActionListener(e->{index();});
 	}
 
 	
@@ -116,7 +120,7 @@ public class ControllerCategoria extends Functions {
 	public void index() { //Pone el panel index
 		taskView.getModel().setDataVector(getData(), getColums());
 		taskView.hideForTheCategory();
-		vp.setContenido(taskView, "Lista de personas");
+		vp.setContenido(taskView, "Categorias");
 		
 	}
 

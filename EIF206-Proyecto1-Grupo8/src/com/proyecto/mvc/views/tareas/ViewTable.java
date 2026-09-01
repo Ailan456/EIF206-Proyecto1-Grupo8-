@@ -18,7 +18,7 @@ import java.awt.Panel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-public class ViewTareasPendientes extends JPanel {
+public class ViewTable extends JPanel {
 	private JComboBox cbxCategory;
 	private JButton btnCargar;
 	private JTable table;
@@ -33,7 +33,7 @@ public class ViewTareasPendientes extends JPanel {
 	private JPanel pCentralSuperior;
 
 	
-	public ViewTareasPendientes() {
+	public ViewTable() {
 		setLayout(new BorderLayout(0, 0));
 		
 		pSuperior = new JPanel();

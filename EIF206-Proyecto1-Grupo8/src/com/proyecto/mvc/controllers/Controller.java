@@ -1,6 +1,6 @@
 package com.proyecto.mvc.controllers;
 
-import com.proyecto.data.Data;
+import com.proyecto.mvc.data.Data;
 import com.proyecto.mvc.models.ListaCategorias;
 import com.proyecto.mvc.models.ListaTareas;
 import com.proyecto.mvc.views.ViewPrincipal;
