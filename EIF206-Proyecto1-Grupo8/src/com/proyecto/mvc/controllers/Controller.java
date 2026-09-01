@@ -4,6 +4,7 @@ import com.proyecto.mvc.data.Data;
 import com.proyecto.mvc.models.ListaCategorias;
 import com.proyecto.mvc.models.ListaTareas;
 import com.proyecto.mvc.views.ViewPrincipal;
+import com.proyecto.mvc.views.tareas.ViewTable;
 
 public class Controller extends Functions {
 
@@ -13,7 +14,9 @@ public class Controller extends Functions {
 	private ViewPrincipal vp;
 	private ListaTareas listaTareas;
 	private ListaCategorias listaCategorias;
-
+	private ControllerTareas task;
+	private ControllerCategoria cat;
+	
 	// =========================================================
 	// CONSTRUCTOR
 	// =========================================================
@@ -21,7 +24,10 @@ public class Controller extends Functions {
 		vp = new ViewPrincipal();
 		listaTareas = new ListaTareas();
 		listaCategorias = new ListaCategorias();
-	}
+		task= new ControllerTareas(vp, listaTareas, listaCategorias);
+		cat= new ControllerCategoria(vp, listaCategorias);
+		
+		}
 
 	
 	// =========================================================
@@ -43,13 +49,14 @@ public class Controller extends Functions {
 		
 		//llamamos el index
 		public void indexTareas(boolean completedTask) {
-			ControllerTareas c= new ControllerTareas(vp, listaTareas, listaCategorias, completedTask);
-			c.initTasks();
+			task.initTasks(completedTask);
 		}
-	
+		
+		
+		//public ControllerCategoria(ViewPrincipal vp,
+		//		ListaCategorias listaCategorias, ViewTable tableView) {		
 		public void indexCategorias() {
-			ControllerCategoria c= new ControllerCategoria(vp, listaCategorias);
-			c.init();
+			cat.init();
 		}
 	
 		

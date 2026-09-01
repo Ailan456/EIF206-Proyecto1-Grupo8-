@@ -146,7 +146,7 @@ public class Form extends JPanel {
 		this.btnCancerlar = btnCancerlar;
 	}
 	
-	public void hidePanel_categoriaForTheCategoryForm() {
-		panel_categoria.setVisible(false);
+	public void showPanel_categoriaForTheCategoryForm(boolean hide) {
+		panel_categoria.setVisible(hide);
 	}
 }

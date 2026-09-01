@@ -195,14 +195,14 @@ public class ViewTable extends JPanel {
 	}
 	
 	
-	public void hidePanel_botonesForCompletedList() {
-		panel_botones.setVisible(false);
+	public void showPanel_botonesForCompletedList(boolean show) {
+		panel_botones.setVisible(show);
 	}
 	
-	public void hideForTheCategory() {
-		btnCompletada.setVisible(false);
-		pSuperior.setVisible(false);
-		pCentralSuperior.setVisible(false);
+	public void showForTheCategory(boolean show) {
+		btnCompletada.setVisible(show);
+		pSuperior.setVisible(show);
+		pCentralSuperior.setVisible(show);
 		
 	}
 

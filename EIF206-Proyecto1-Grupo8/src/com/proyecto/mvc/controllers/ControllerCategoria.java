@@ -15,20 +15,19 @@ public class ControllerCategoria extends Functions {
 
 	ViewPrincipal vp;
 	private ListaCategorias listaCategorias;
-	private ViewTable taskView;
+	private ViewTable tableView;
 	
 	
-	public ControllerCategoria(ViewPrincipal vp, ListaCategorias listaCategorias) {
+	public ControllerCategoria(ViewPrincipal vp,
+			ListaCategorias listaCategorias) {
 		this.vp = vp;
 		this.listaCategorias=listaCategorias;
-		this.taskView = new ViewTable();
+		this.tableView = new ViewTable();
 	}
 	
 	public void init() {
 		setBtns();
-		
 		index();
-		
 	}
 	
 	
@@ -38,19 +37,19 @@ public class ControllerCategoria extends Functions {
 	public void setBtns() {
 
 		
-		taskView.getBtnNueva().addActionListener(e->{
+		tableView.getBtnNueva().addActionListener(e->{
 			create();
 		});
 
-		taskView.getBtnEditar().addActionListener(e->{
-			int id = getSelectedID(taskView.getTable());// Usamos al metodo de functions que heredamos
+		tableView.getBtnEditar().addActionListener(e->{
+			int id = getSelectedID(tableView.getTable());// Usamos al metodo de functions que heredamos
 			if(id>0) {
 				edit(id);
 			}
 		});
 
-		taskView.getBtnEliminar().addActionListener(e->{
-			int id = getSelectedID(taskView.getTable());
+		tableView.getBtnEliminar().addActionListener(e->{
+			int id = getSelectedID(tableView.getTable());
 			if(id>0) {
 
 				int opcion = JOptionPane.showConfirmDialog(null, "Desea eliminar el registro?");
@@ -66,7 +65,7 @@ public class ControllerCategoria extends Functions {
 	
 	public void create() { // Panel de registrar pipol
 		Form v = new Form();
-		v.hidePanel_categoriaForTheCategoryForm();//escondemos la opcion que no se usa
+		v.showPanel_categoriaForTheCategoryForm(false);//escondemos la opcion que no se usa
 		
 		
 		vp.setContenido(v, "Registrar Categoria");
@@ -89,7 +88,7 @@ public class ControllerCategoria extends Functions {
 	
 	public void edit(int id) {//Lo mismo que form pero en vez de create llamo a update
 		Form v = new Form();
-		v.hidePanel_categoriaForTheCategoryForm();//escondemos la opcion que no se usa
+		v.showPanel_categoriaForTheCategoryForm(false);//escondemos la opcion que no se usa
 		
 		//busco la categoria y muestro sus datos
 		Categoria categoria = listaCategorias.findById(id);
@@ -118,9 +117,9 @@ public class ControllerCategoria extends Functions {
 	
 	
 	public void index() { //Pone el panel index
-		taskView.getModel().setDataVector(getData(), getColums());
-		taskView.hideForTheCategory();
-		vp.setContenido(taskView, "Categorias");
+		tableView.getModel().setDataVector(getData(), getColums());
+		tableView.showForTheCategory(false);
+		vp.setContenido(tableView, "Categorias");
 		
 	}
 

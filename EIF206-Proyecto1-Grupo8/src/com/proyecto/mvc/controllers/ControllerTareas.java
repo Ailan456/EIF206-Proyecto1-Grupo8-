@@ -17,21 +17,21 @@ import com.proyecto.mvc.views.tareas.ViewTable;
 public class ControllerTareas extends Functions {
 
 	private ViewPrincipal vp;
-	private ViewTable taskView;
 	private ListaTareas listaTareas;
 	private ListaCategorias listaCategorias;
+	private ViewTable tableView;
 	private boolean completedTask;
 	
 
-	
+	//nota, hay que revisar los llamados en controller tarea a initTasks();
 	public ControllerTareas(ViewPrincipal vp, ListaTareas listaTareas,
-			ListaCategorias listaCategorias, boolean completedTask) {
+			ListaCategorias listaCategorias) {
 		this.vp= vp;
 		this.listaTareas= listaTareas;
-		this.listaCategorias=listaCategorias;
-		this.completedTask=completedTask;
+		this.listaCategorias=listaCategorias;		
+		this.tableView = new ViewTable();
+		setBtnsFunctions();//ahora se setea en el constructor, porque se hace una sola vez
 		
-		this.taskView = new ViewTable();
 	}
 
 	
@@ -42,13 +42,12 @@ public class ControllerTareas extends Functions {
 		// =========================================================
 
 
-	public void initTasks() {
-		loadCbxCategory(taskView.getCbxCategory());
-		vp.setContenido(taskView, completedTask? "Tareas-Completadas":"Tareas-Pendientes");
-		setBtnsFunctions();
-		
-		if(completedTask)
-			taskView.hidePanel_botonesForCompletedList();
+	public void initTasks(boolean completedTask) {
+		loadCbxCategory(tableView.getCbxCategory()); //carga todos las opciones, y selecciona el que ya estaba 
+		vp.setContenido(tableView, completedTask? "Tareas-Completadas":"Tareas-Pendientes"); // lo mostramos
+		tableView.showPanel_botonesForCompletedList(!completedTask); //muestra los botones si es falso que completedTask
+		this.completedTask=completedTask;
+		cargarTabla(tableView);
 	}
 
 	
@@ -56,44 +55,44 @@ public class ControllerTareas extends Functions {
 	// Metodo de inicializacion de listeners aparte para evitar el error de crear multiples listeners
 	public void setBtnsFunctions() {
 		
-		taskView.getBtnCargar().addActionListener(e -> {
-			cargarTabla(taskView);
+		tableView.getBtnCargar().addActionListener(e -> {
+			cargarTabla(tableView);
 		});
 		
 		if(!completedTask) { //dentro de este if, se setean los botones, solo si se van a usar
-			taskView.getBtnNueva().addActionListener(e -> {
+			tableView.getBtnNueva().addActionListener(e -> {
 				createTask();
 			});
 	
-			taskView.getBtnEditar().addActionListener(e -> {
-				int id = getSelectedID(taskView.getTable());
+			tableView.getBtnEditar().addActionListener(e -> {
+				int id = getSelectedID(tableView.getTable());
 				
 				if (id > 0)
 					editTask(id);
 			});
 	
-			taskView.getBtnEliminar().addActionListener(e -> {
-				int id = getSelectedID(taskView.getTable());
+			tableView.getBtnEliminar().addActionListener(e -> {
+				int id = getSelectedID(tableView.getTable());
 	
 				if (id > 0) {
 					int opcion = JOptionPane.showConfirmDialog(null, "Seguro que desea eliminar?");
 	
 					if (opcion == 0) {
 						listaTareas.destroy(id);
-						cargarTabla(taskView);
+						cargarTabla(tableView);
 					}
 				}
 			});
 	
-			taskView.getBtnCompletada().addActionListener(e -> {
-				int id = getSelectedID(taskView.getTable());
+			tableView.getBtnCompletada().addActionListener(e -> {
+				int id = getSelectedID(tableView.getTable());
 	
 				if (id > 0) {
 					int opcion = JOptionPane.showConfirmDialog(null, "Desea marcar como completada la tarea?");
 	
 					if (opcion == 0) {
 						listaTareas.completedTask(id);
-						cargarTabla(taskView);
+						cargarTabla(tableView);
 					}
 				}
 			});
@@ -158,14 +157,12 @@ public class ControllerTareas extends Functions {
 				JOptionPane.showMessageDialog(null, "Por favor llene todos los campos");
 			} else {
 				listaTareas.store(new Tarea(v.gettFName().getText(), v.gettADescription().getText(), category.getId()));
-				initTasks();
-				cargarTabla(taskView);
+				initTasks(completedTask);
 			}
 		});
 
 		v.getBtnCancerlar().addActionListener(e -> {
-			initTasks();
-			cargarTabla(taskView);
+			initTasks(completedTask);
 		});
 
 		vp.setContenido(v, "Tareas-Registrar");
@@ -189,14 +186,12 @@ public class ControllerTareas extends Functions {
 			} else {
 				Categoria category = (Categoria) v.getCbxCategory().getSelectedItem();
 				listaTareas.update(new Tarea(v.gettFName().getText(), v.gettADescription().getText(), category.getId()), id);
-				initTasks();
-	cargarTabla(taskView);
+				initTasks(completedTask);
 			}
 		});
 
 		v.getBtnCancerlar().addActionListener(e -> {
-			initTasks();
-			cargarTabla(taskView);
+			initTasks(completedTask);
 		});
 
 		vp.setContenido(v, "Tareas-Registrar");
