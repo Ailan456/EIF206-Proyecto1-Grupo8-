@@ -12,6 +12,7 @@ import java.awt.GridLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.BorderLayout;
 
 public class Form extends JPanel {
 	
@@ -23,15 +24,20 @@ public class Form extends JPanel {
 	private JPanel panel_categoria;
 	private JPanel panel_botones;
 	private JLabel label;
+	private JPanel panel;
 
 	public Form() {
 		setBorder(new EmptyBorder(10, 10, 10, 10));
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{330, 0};
-		gridBagLayout.rowHeights = new int[] {28, 28, 30, 28};
-		gridBagLayout.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-		setLayout(gridBagLayout);
+		setLayout(new BorderLayout(0, 0));
+		
+		panel = new JPanel();
+		add(panel, BorderLayout.CENTER);
+		GridBagLayout gbl_panel = new GridBagLayout();
+		gbl_panel.rowHeights = new int[] {30, 30, 30, 30};
+		gbl_panel.columnWidths = new int[] {340};
+		gbl_panel.columnWeights = new double[]{0.0};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0};
+		panel.setLayout(gbl_panel);
 		
 		JLabel lblNombre = new JLabel("Nombre");
 		GridBagConstraints gbc_lblNombre = new GridBagConstraints();
@@ -39,7 +45,7 @@ public class Form extends JPanel {
 		gbc_lblNombre.insets = new Insets(0, 0, 5, 0);
 		gbc_lblNombre.gridx = 0;
 		gbc_lblNombre.gridy = 0;
-		add(lblNombre, gbc_lblNombre);
+		panel.add(lblNombre, gbc_lblNombre);
 		
 		tFName = new JTextField();
 		GridBagConstraints gbc_tFName = new GridBagConstraints();
@@ -47,7 +53,7 @@ public class Form extends JPanel {
 		gbc_tFName.insets = new Insets(0, 0, 5, 0);
 		gbc_tFName.gridx = 0;
 		gbc_tFName.gridy = 1;
-		add(tFName, gbc_tFName);
+		panel.add(tFName, gbc_tFName);
 		tFName.setColumns(10);
 		
 		panel_categoria = new JPanel();
@@ -55,8 +61,8 @@ public class Form extends JPanel {
 		gbc_panel_categoria.fill = GridBagConstraints.BOTH;
 		gbc_panel_categoria.insets = new Insets(0, 0, 5, 0);
 		gbc_panel_categoria.gridx = 0;
-		gbc_panel_categoria.gridy = 3;
-		add(panel_categoria, gbc_panel_categoria);
+		gbc_panel_categoria.gridy = 2;
+		panel.add(panel_categoria, gbc_panel_categoria);
 		panel_categoria.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JLabel lblDescripcion = new JLabel("Descripcion");
@@ -76,11 +82,10 @@ public class Form extends JPanel {
 		
 		panel_botones = new JPanel();
 		GridBagConstraints gbc_panel_botones = new GridBagConstraints();
-		gbc_panel_botones.insets = new Insets(0, 0, 5, 0);
 		gbc_panel_botones.fill = GridBagConstraints.BOTH;
 		gbc_panel_botones.gridx = 0;
-		gbc_panel_botones.gridy = 5;
-		add(panel_botones, gbc_panel_botones);
+		gbc_panel_botones.gridy = 3;
+		panel.add(panel_botones, gbc_panel_botones);
 		
 		btnCancerlar = new JButton("Cancerlar");
 		panel_botones.add(btnCancerlar);

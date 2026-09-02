@@ -15,6 +15,7 @@ import java.awt.Font;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.Dimension;
+import java.awt.Component;
 
 public class ViewTable extends JPanel {
 	private JComboBox cbxCategory;
@@ -29,7 +30,6 @@ public class ViewTable extends JPanel {
 	private JPanel panel_botones;
 	private JPanel pSuperior;
 	private JPanel pCentralSuperior;
-	private JPanel panel;
 
 	
 	public ViewTable() {
@@ -72,18 +72,13 @@ public class ViewTable extends JPanel {
 		lblActualCategory.setFont(new Font("Times New Roman", Font.PLAIN, 12));
 		pCentralSuperior.add(lblActualCategory);
 		
-		panel = new JPanel();
-		panel.setBackground(Color.LIGHT_GRAY);
-		panel.setForeground(Color.WHITE);
-		panel.setPreferredSize(new Dimension(50, 50));
-		pCentral.add(panel, BorderLayout.SOUTH);
-		
 		panel_botones = new JPanel();
+		panel_botones.setPreferredSize(new Dimension(50, 50));
+		panel_botones.setSize(new Dimension(10, 10));
+		pCentral.add(panel_botones, BorderLayout.SOUTH);
 		panel_botones.setBackground(Color.LIGHT_GRAY);
-		panel.add(panel_botones);
 		panel_botones.setBorder(new EmptyBorder(5, 5, 5, 5));
-		FlowLayout fl_panel_botones = (FlowLayout) panel_botones.getLayout();
-		fl_panel_botones.setAlignment(FlowLayout.RIGHT);
+		panel_botones.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		btnNueva = new JButton("Nueva");
 		btnNueva.setFont(new Font("Times New Roman", Font.PLAIN, 12));
@@ -203,14 +198,16 @@ public class ViewTable extends JPanel {
 	
 	
 	public void showPanel_botonesForCompletedList(boolean show) {
-		panel_botones.setVisible(show);
+		btnNueva.setVisible(show);
+		btnEditar.setVisible(show);
+		btnEliminar.setVisible(show);
+		btnCompletada.setVisible(show);
 	}
 	
 	public void showForTheCategory(boolean show) {
 		btnCompletada.setVisible(show);
 		pSuperior.setVisible(show);
-		pCentralSuperior.setVisible(show);
-		
+		pCentralSuperior.setVisible(show);		
 	}
 
 }
