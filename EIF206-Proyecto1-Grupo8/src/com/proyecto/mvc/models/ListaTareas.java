@@ -54,4 +54,13 @@ public class ListaTareas {
 			tarea.setCurrentState(true);
 		}
 	}
+	
+	public void destroyAllCategory(int categoryId) {
+		for (int i = 0; i < list.size(); i++)
+			if(list.get(i).getCategoryId()==categoryId)
+				list.remove(list.get(i));
+	}
+	
+	
+	
 }

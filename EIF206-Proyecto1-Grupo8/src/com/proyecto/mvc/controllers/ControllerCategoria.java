@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 
 import com.proyecto.mvc.models.Categoria;
 import com.proyecto.mvc.models.ListaCategorias;
+import com.proyecto.mvc.models.ListaTareas;
 import com.proyecto.mvc.views.ViewPrincipal;
 import com.proyecto.mvc.views.tareas.Form;
 import com.proyecto.mvc.views.tareas.ViewTable;
@@ -15,12 +16,14 @@ public class ControllerCategoria extends Functions {
 
 	ViewPrincipal vp;
 	private ListaCategorias listaCategorias;
+	private ListaTareas listaTareas;
 	private ViewTable tableView;
 	
 	
-	public ControllerCategoria(ViewPrincipal vp, ListaCategorias listaCategorias) {
+	public ControllerCategoria(ViewPrincipal vp, ListaCategorias listaCategorias,ListaTareas listaTareas) {
 		this.vp = vp;
 		this.listaCategorias=listaCategorias;
+		this.listaTareas=listaTareas;
 		this.tableView = new ViewTable();
 		setBtnsCat();
 	}
@@ -67,6 +70,7 @@ public class ControllerCategoria extends Functions {
 				int opcion = JOptionPane.showConfirmDialog(null, "Desea eliminar el registro?");
 				if(opcion == 0) {
 					listaCategorias.destroy(id);
+					//listaTareas.destroyAllCategory(id); //elimina a los datos en el array
 					index();
 				}
 			}

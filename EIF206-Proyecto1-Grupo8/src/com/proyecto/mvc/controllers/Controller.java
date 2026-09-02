@@ -24,7 +24,7 @@ public class Controller{
 		listaTareas = new ListaTareas();
 		listaCategorias = new ListaCategorias();
 		controllerTask= new ControllerTareas(vp, listaTareas, listaCategorias);
-		controllerCategory= new ControllerCategoria(vp, listaCategorias);
+		controllerCategory= new ControllerCategoria(vp, listaCategorias,listaTareas);
 		
 		}
 
