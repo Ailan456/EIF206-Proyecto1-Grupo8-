@@ -24,6 +24,8 @@ public class ViewPrincipal extends JFrame {
 	private JButton btnTareasPendientes;
 	private JButton btnTareasCompletadas;
 	private JButton btnCategorias;
+	private JPanel panel;
+	private JPanel panel_1;
 
 	public ViewPrincipal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -62,10 +64,20 @@ public class ViewPrincipal extends JFrame {
 		lblTitulo = new JLabel("Titulo");
 		lblTitulo.setFont(new Font("Times New Roman", Font.BOLD, 15));
 		pSuperior.add(lblTitulo);
+		lblTitulo.setForeground(Color.decode("#212121"));
+		
+		panel = new JPanel();
+		pCentral.add(panel, BorderLayout.CENTER);
+		panel.setLayout(new BorderLayout(0, 0));
+		
 		
 		pContenido = new JPanel();
-		pCentral.add(pContenido, BorderLayout.CENTER);
+		panel.add(pContenido);
 		pContenido.setLayout(new BorderLayout(0, 0));
+		
+		panel_1 = new JPanel();
+		panel_1.setBackground(Color.LIGHT_GRAY);
+		panel.add(panel_1, BorderLayout.EAST);
 	}
 	
 	public void init() {

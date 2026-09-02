@@ -22,16 +22,15 @@ public class Form extends JPanel {
 	private JComboBox cbxCategory;
 	private JPanel panel_categoria;
 	private JPanel panel_botones;
-	private JLabel label_5;
 	private JLabel label;
 
 	public Form() {
 		setBorder(new EmptyBorder(10, 10, 10, 10));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{330, 0};
-		gridBagLayout.rowHeights = new int[]{28, 28, 28, 28, 28, 0, 0, 0, 0, 28, 28, 28, 28, 28, 28, 0};
+		gridBagLayout.rowHeights = new int[] {28, 28, 30, 28};
 		gridBagLayout.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		setLayout(gridBagLayout);
 		
 		JLabel lblNombre = new JLabel("Nombre");
@@ -88,14 +87,6 @@ public class Form extends JPanel {
 		
 		btnGuardar = new JButton("Guardar");
 		panel_botones.add(btnGuardar);
-		
-		label_5 = new JLabel("");
-		GridBagConstraints gbc_label_5 = new GridBagConstraints();
-		gbc_label_5.fill = GridBagConstraints.BOTH;
-		gbc_label_5.insets = new Insets(0, 0, 5, 0);
-		gbc_label_5.gridx = 0;
-		gbc_label_5.gridy = 13;
-		add(label_5, gbc_label_5);
 
 	}
 

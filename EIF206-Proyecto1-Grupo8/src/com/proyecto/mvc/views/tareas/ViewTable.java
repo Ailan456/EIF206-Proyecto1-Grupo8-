@@ -14,6 +14,7 @@ import java.awt.Font;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import java.awt.Dimension;
 
 public class ViewTable extends JPanel {
 	private JComboBox cbxCategory;
@@ -28,6 +29,7 @@ public class ViewTable extends JPanel {
 	private JPanel panel_botones;
 	private JPanel pSuperior;
 	private JPanel pCentralSuperior;
+	private JPanel panel;
 
 	
 	public ViewTable() {
@@ -43,6 +45,7 @@ public class ViewTable extends JPanel {
 		JLabel lblCategoria = new JLabel("Categoria");
 		lblCategoria.setFont(new Font("Times New Roman", Font.PLAIN, 12));
 		pSuperior.add(lblCategoria);
+		lblCategoria.setForeground(Color.decode("#212121"));
 		
 		cbxCategory = new JComboBox();
 		pSuperior.add(cbxCategory);
@@ -69,11 +72,18 @@ public class ViewTable extends JPanel {
 		lblActualCategory.setFont(new Font("Times New Roman", Font.PLAIN, 12));
 		pCentralSuperior.add(lblActualCategory);
 		
+		panel = new JPanel();
+		panel.setBackground(Color.LIGHT_GRAY);
+		panel.setForeground(Color.WHITE);
+		panel.setPreferredSize(new Dimension(50, 50));
+		pCentral.add(panel, BorderLayout.SOUTH);
+		
 		panel_botones = new JPanel();
+		panel_botones.setBackground(Color.LIGHT_GRAY);
+		panel.add(panel_botones);
 		panel_botones.setBorder(new EmptyBorder(5, 5, 5, 5));
 		FlowLayout fl_panel_botones = (FlowLayout) panel_botones.getLayout();
 		fl_panel_botones.setAlignment(FlowLayout.RIGHT);
-		pCentral.add(panel_botones, BorderLayout.SOUTH);
 		
 		btnNueva = new JButton("Nueva");
 		btnNueva.setFont(new Font("Times New Roman", Font.PLAIN, 12));
