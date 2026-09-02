@@ -13,6 +13,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Component;
 
 public class Form extends JPanel {
 	
@@ -21,71 +23,53 @@ public class Form extends JPanel {
 	private JButton btnGuardar;
 	private JButton btnCancerlar;
 	private JComboBox cbxCategory;
-	private JPanel panel_categoria;
 	private JPanel panel_botones;
 	private JLabel label;
 	private JPanel panel;
+	private JLabel lblDescripcion;
+	private JLabel lblCategoria;
+	private JLabel label_1;
+	private JLabel label_2;
 
 	public Form() {
 		setBorder(new EmptyBorder(10, 10, 10, 10));
 		setLayout(new BorderLayout(0, 0));
 		
 		panel = new JPanel();
+		panel.setPreferredSize(new Dimension(370, 270));
 		add(panel, BorderLayout.CENTER);
-		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.rowHeights = new int[] {30, 30, 30, 30};
-		gbl_panel.columnWidths = new int[] {340};
-		gbl_panel.columnWeights = new double[]{0.0};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0};
-		panel.setLayout(gbl_panel);
+		panel.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JLabel lblNombre = new JLabel("Nombre");
-		GridBagConstraints gbc_lblNombre = new GridBagConstraints();
-		gbc_lblNombre.fill = GridBagConstraints.BOTH;
-		gbc_lblNombre.insets = new Insets(0, 0, 5, 0);
-		gbc_lblNombre.gridx = 0;
-		gbc_lblNombre.gridy = 0;
-		panel.add(lblNombre, gbc_lblNombre);
+		panel.add(lblNombre);
 		
 		tFName = new JTextField();
-		GridBagConstraints gbc_tFName = new GridBagConstraints();
-		gbc_tFName.fill = GridBagConstraints.BOTH;
-		gbc_tFName.insets = new Insets(0, 0, 5, 0);
-		gbc_tFName.gridx = 0;
-		gbc_tFName.gridy = 1;
-		panel.add(tFName, gbc_tFName);
+		panel.add(tFName);
 		tFName.setColumns(10);
 		
-		panel_categoria = new JPanel();
-		GridBagConstraints gbc_panel_categoria = new GridBagConstraints();
-		gbc_panel_categoria.fill = GridBagConstraints.BOTH;
-		gbc_panel_categoria.insets = new Insets(0, 0, 5, 0);
-		gbc_panel_categoria.gridx = 0;
-		gbc_panel_categoria.gridy = 2;
-		panel.add(panel_categoria, gbc_panel_categoria);
-		panel_categoria.setLayout(new GridLayout(0, 1, 0, 0));
+		label_2 = new JLabel("");
+		panel.add(label_2);
 		
-		JLabel lblDescripcion = new JLabel("Descripcion");
-		panel_categoria.add(lblDescripcion);
+		lblDescripcion = new JLabel("Descripcion");
+		panel.add(lblDescripcion);
 		
 		tADescription = new JTextArea();
-		panel_categoria.add(tADescription);
+		panel.add(tADescription);
 		
 		label = new JLabel("");
-		panel_categoria.add(label);
+		panel.add(label);
 		
-		JLabel lblCategoria = new JLabel("Categoria");
-		panel_categoria.add(lblCategoria);
+		lblCategoria = new JLabel("Categoria");
+		panel.add(lblCategoria);
 		
 		cbxCategory = new JComboBox();
-		panel_categoria.add(cbxCategory);
+		panel.add(cbxCategory);
+		
+		label_1 = new JLabel("");
+		panel.add(label_1);
 		
 		panel_botones = new JPanel();
-		GridBagConstraints gbc_panel_botones = new GridBagConstraints();
-		gbc_panel_botones.fill = GridBagConstraints.BOTH;
-		gbc_panel_botones.gridx = 0;
-		gbc_panel_botones.gridy = 3;
-		panel.add(panel_botones, gbc_panel_botones);
+		panel.add(panel_botones);
 		
 		btnCancerlar = new JButton("Cancerlar");
 		panel_botones.add(btnCancerlar);
@@ -141,7 +125,13 @@ public class Form extends JPanel {
 		this.btnCancerlar = btnCancerlar;
 	}
 	
-	public void showPanel_categoriaForTheCategoryForm(boolean hide) {
-		panel_categoria.setVisible(hide);
+	public void showPanel_categoriaForTheCategoryForm(boolean show) {
+		lblDescripcion.setVisible(show);
+		tADescription.setVisible(show);
+		label.setVisible(show);
+		label_1.setVisible(show);
+		lblCategoria.setVisible(show);
+		cbxCategory.setVisible(show);
+		
 	}
 }
